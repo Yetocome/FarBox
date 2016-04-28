@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户登录</title>
+</head>
+  <style type="text/css">
+    body{color:#efd;background:#453;padding:0 5em;margin:0}
+    h1{padding:2em 1em;background:#675}
+    h2{color:#bf8;border-top:1px dotted #fff;margin-top:2em}
+    p{margin:1em 0}
+  </style>
+<body>
+<h1>登录界面</h1>
+<form action = "" method = 'post' enctype="multipart/form-data">
+    {% csrf_token %}
+{{lf.as_p}}
+<input type="submit" value = "ok" />
+</form>
+</body>
+</html>
