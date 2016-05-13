@@ -16,7 +16,7 @@ class LoginForm(forms.Form):
     password = forms.CharField(label='密码: ', widget=forms.PasswordInput())
 
 class UploadForm(forms.Form):
-    uploadimg = forms.FileField()
+    file = forms.FileField(label='文件名', max_length=200)
     
 def index(request):
     return render(request, 'index.html')
@@ -57,7 +57,12 @@ def login(request):
         return render(request, 'msg.html', {'msg':msg})
     else:
         lf = LoginForm()
-    return render(request, 'login.html', {'lf':lf})
+        return render(request, 'login.html', {'lf':lf})
 
 def upload(request):
-    pass
+    if request.method == 'POST':
+        form = UploadForm(request.POST, request.FILES)
+        return HttpResponse(request.FILES['file'].name + " SIZE: "  + str(request.FILES['file'].size))
+    else:
+        upload_form = UploadForm()
+        return render(request, 'upload.html', {'upload_form':upload_form})
