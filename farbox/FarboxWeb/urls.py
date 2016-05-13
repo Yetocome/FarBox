@@ -1,5 +1,5 @@
 from django.conf.urls import patterns, url, include
-from account import views
+from FarboxWeb import views
 
 urlpatterns = [
     url(r'^$', views.home, name='home'),

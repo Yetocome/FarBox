@@ -18,6 +18,5 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^home/$', 'farbox.views.home', name='home'),
-    url(r'^account/', include('account.urls')),
+    url(r'^farbox/', include('FarboxWeb.urls')),
 ]
