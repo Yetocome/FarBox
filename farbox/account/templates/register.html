@@ -1,3 +1,4 @@
+{% load staticfiles %}
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
@@ -11,6 +12,7 @@
     h2{color:#bf8;border-top:1px dotted #fff;margin-top:2em}
     p{margin:1em 0}
   </style>
+<link rel="stylesheet" type="text/css" href="{% static 'account/bootstrap/css/bootstrap.css' %}"/>
 <body>
 <h1>注册页面：</h1>
 <form action = "" method = 'post' enctype="multipart/form-data">

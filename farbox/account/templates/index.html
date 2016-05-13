@@ -1,11 +1,14 @@
+{% load staticfiles %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>帐号管理</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'account/bootstrap/css/bootstrap.css' %}"/>
 </head>
 <body>
 <h2><a href="login">login</a></h2>
 <h2><a href="register">register</a></h2>
+<img src="{% static 'account/a.jpg' %}">
 </body>
 </html>

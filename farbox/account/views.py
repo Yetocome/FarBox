@@ -17,6 +17,7 @@ class LoginForm(forms.Form):
 
 def home(request):
     return render(request, 'index.html')
+
 def register(request):
     if request.method == 'POST':
         uf = UserForm(request.POST)

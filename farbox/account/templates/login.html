@@ -1,3 +1,4 @@
+{% load staticfiles %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,6 +11,7 @@
     h2{color:#bf8;border-top:1px dotted #fff;margin-top:2em}
     p{margin:1em 0}
   </style>
+<link rel="stylesheet" type="text/css" href="{% static 'account/bootstrap/css/bootstrap.css' %}"/>
 <body>
 <h1>登录界面</h1>
 <form action = "" method = 'post' enctype="multipart/form-data">
