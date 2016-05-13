@@ -55,3 +55,7 @@ def login(request):
     else:
         lf = LoginForm()
     return render(request, 'login.html', {'lf':lf})
+
+
+def upload(request):
+    pass
