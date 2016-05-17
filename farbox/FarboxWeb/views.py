@@ -4,6 +4,7 @@ from django.shortcuts import render_to_response
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from django.http import HttpResponse, HttpResponseRedirect
+from . import FileManager
 # Create your views here.
 
 class UserForm(forms.Form):
@@ -62,6 +63,7 @@ def login(request):
 def upload(request):
     if request.method == 'POST':
         form = UploadForm(request.POST, request.FILES)
+        FileManager.handle_upload_file(request.FILES['file'])
         return HttpResponse(request.FILES['file'].name + " SIZE: "  + str(request.FILES['file'].size))
     else:
         upload_form = UploadForm()
