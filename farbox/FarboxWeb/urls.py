@@ -7,3 +7,4 @@ urlpatterns = [
     url(r'^login/', views.login, name='login'),
     url(r'^upload', views.upload, name='upload'),
 ]
+
