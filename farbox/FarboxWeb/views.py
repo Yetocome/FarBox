@@ -1,74 +1,52 @@
 from django.shortcuts import render
 from django import forms
-from django.shortcuts import render_to_response
+from django.contrib import messages
+from django.shortcuts import render_to_response, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
-from django.contrib.auth import login as auth_login
+from django.contrib.auth import login as login_user, logout as logout_user
 from django.http import HttpResponse, HttpResponseRedirect
 from . import FileManager
 from .models import VirtualFile
+from .forms import LoginForm, RegistrationForm, UploadForm
 # Create your views here.
 
-class UserForm(forms.Form):
-    username = forms.CharField(label='用户名: ', max_length=100)
-    password = forms.CharField(label='密码: ', widget=forms.PasswordInput())
-    email = forms.EmailField(label='电子邮件: ')
 
-class LoginForm(forms.Form):
-    username = forms.CharField(label='用户名: ', max_length=100)
-    password = forms.CharField(label='密码: ', widget=forms.PasswordInput())
-
-class UploadForm(forms.Form):
-    file = forms.FileField(label='文件名', max_length=200)
     
 def index(request):
     return render(request, 'index.html')
 
 def register(request):
     if request.method == 'POST':
-        uf = UserForm(request.POST)
-        if uf.is_valid():
-            #获取表单信息
-            username = uf.cleaned_data['username']
-            password = uf.cleaned_data['password']
-            email = uf.cleaned_data['email']
-            #将表单写入数据库
-            user = User()
-            user.username = username
-            user.set_password(password)
-            user.email = email
+        form = RegistrationForm(data=request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.email = form.cleaned_data['email']
             user.save()
-            #返回注册成功页面
-
-            #创建一个用户相关的VirtulFile
-            user_root_path = VirtualFile(path_name=username)
-            user_root_path.save()
-            return render(request, 'success.html',{'username':username})
+            messages.info(request, '注册成功!')
+            return redirect('FarboxWeb:index')
+        return render(request, 'register.html', {
+            'form':form,
+        })
     else:
-        uf = UserForm()
-    return render(request, 'register.html',{'uf':uf})
+        form = RegistrationForm()
+        return render(request, 'register.html', {
+            'form':form,
+        })
 
 
 def login(request):
     if request.method == 'POST':
-        lf = LoginForm(request.POST)
-        if(lf.is_valid()):
-            username = lf.cleaned_data['username']
-            password = lf.cleaned_data['username']
-            user = authenticate(username=username, password=password)
-            if user is not None:
-                if user.is_active:
-                    auth_login(request, user)
-                    msg = user.username + ' login Success'
-            else:
-                msg = 'Username or password wrong'
-        else:
-            msg = 'Internal Error'
-        return render(request, 'msg.html', {'msg':msg})
-    else:
-        lf = LoginForm()
-        return render(request, 'login.html', {'lf':lf})
+        form = LoginForm(data=request.POST)
+        if(form.is_valid()):
+            if not form.cleaned_data.get('remember_me'):
+                request.session.set_expiry(0)
 
+            login_user(request, form.get_user())
+            return redirect('FarboxWeb:index')
+    else:
+        form = LoginForm()
+        return render(request, 'login.html', {'form':form,})
 
 
 def upload(request):
@@ -76,8 +54,9 @@ def upload(request):
         return HttpResponse("you are not logged in")
     if request.method == 'POST':
         form = UploadForm(request.POST, request.FILES)
-        FileManager.handle_upload_file(request.FILES['file'])
-        return HttpResponse(request.FILES['file'].name + " SIZE: "  + str(request.FILES['file'].size))
+        realfilename = FileManager.handle_upload_file(request.FILES['file'])
+
+        return HttpResponse(request.FILES['file'].name + " SIZE: " + str(request.FILES['file'].size))
     else:
         upload_form = UploadForm()
         return render(request, 'upload.html', {'upload_form':upload_form, 'username':request.user.get_username()})

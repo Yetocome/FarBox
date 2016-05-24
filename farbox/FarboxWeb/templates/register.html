@@ -17,7 +17,7 @@
 <h1>注册页面：</h1>
 <form action = "" method = 'post' enctype="multipart/form-data">
     {% csrf_token %}
-{{uf.as_p}}
+{{form.as_p}}
 <input type="submit" value = "ok" />
 </form>
   <p><a href="../login">login</a></p>
