@@ -12,5 +12,13 @@
 </head>
 
 <h1>Username: {{ username }}</h1>
-
+<ul>
+    {% for file in files %}
+    <li>
+        {{file.path_name}}
+    </li>
+    {% endfor %}
+</ul>
+<p><a href="../upload">upload</a></p>
+<p><a href="../logout">logout</a></p>
 </html>

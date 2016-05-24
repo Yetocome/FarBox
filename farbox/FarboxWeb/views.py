@@ -54,8 +54,17 @@ def login(request):
 
 
 def home(request):
+    username = request.user.get_username()
+    files = VirtualFile.objects.get(parent_id=0, path_name=username)
+    files = VirtualFile.objects.filter(parent_id=files.path_id)
     return render(request, 'home.html', {
-        'username': request.user.get_username(),})
+        'username': username,
+        'files':files,
+    })
+
+def logout(request):
+    logout_user(request)
+    return redirect('FarboxWeb:index')
 
 def upload(request):
     if not request.user.is_authenticated():
@@ -63,7 +72,8 @@ def upload(request):
     if request.method == 'POST':
         FileManager.handle_upload_file(request.FILES['file'],
                                        request.user.get_username())
-        return HttpResponse(request.FILES['file'].name + " SIZE: " + str(request.FILES['file'].size))
+        return redirect('FarboxWeb:home')
+        #return HttpResponse(request.FILES['file'].name + " SIZE: " + str(request.FILES['file'].size))
     else:
         upload_form = UploadForm()
         return render(request, 'upload.html', {'upload_form':upload_form, 'username':request.user.get_username()})
