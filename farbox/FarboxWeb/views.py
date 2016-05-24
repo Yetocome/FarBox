@@ -3,8 +3,10 @@ from django import forms
 from django.shortcuts import render_to_response
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
+from django.contrib.auth import login as auth_login
 from django.http import HttpResponse, HttpResponseRedirect
 from . import FileManager
+from .models import VirtualFile
 # Create your views here.
 
 class UserForm(forms.Form):
@@ -37,10 +39,15 @@ def register(request):
             user.email = email
             user.save()
             #返回注册成功页面
+
+            #创建一个用户相关的VirtulFile
+            user_root_path = VirtualFile(path_name=username)
+            user_root_path.save()
             return render(request, 'success.html',{'username':username})
     else:
         uf = UserForm()
     return render(request, 'register.html',{'uf':uf})
+
 
 def login(request):
     if request.method == 'POST':
@@ -50,7 +57,9 @@ def login(request):
             password = lf.cleaned_data['username']
             user = authenticate(username=username, password=password)
             if user is not None:
-                msg = user.username + ' login Success'
+                if user.is_active:
+                    auth_login(request, user)
+                    msg = user.username + ' login Success'
             else:
                 msg = 'Username or password wrong'
         else:
@@ -60,11 +69,15 @@ def login(request):
         lf = LoginForm()
         return render(request, 'login.html', {'lf':lf})
 
+
+
 def upload(request):
+    if not request.user.is_authenticated():
+        return HttpResponse("you are not logged in")
     if request.method == 'POST':
         form = UploadForm(request.POST, request.FILES)
         FileManager.handle_upload_file(request.FILES['file'])
         return HttpResponse(request.FILES['file'].name + " SIZE: "  + str(request.FILES['file'].size))
     else:
         upload_form = UploadForm()
-        return render(request, 'upload.html', {'upload_form':upload_form})
+        return render(request, 'upload.html', {'upload_form':upload_form, 'username':request.user.get_username()})

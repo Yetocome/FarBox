@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>upload</title>
+    <title>upload page</title>
 </head>
 <body>
-<h1>Upload</h1>
+<h1>User: {{ username }}</h1>
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{upload_form.as_p}}
