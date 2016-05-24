@@ -1,0 +1,16 @@
+{% load staticfiles %}
+{% csrf_token %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>farbox - 在云端的生活</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="{% static 'FarboxWeb/bootstrap/css/bootstrap.min.css' %}"/>
+    <script src="{% static 'FarboxWeb/bootstrap/js/bootstrap.min.js' %}"> </script>
+</head>
+
+<h1>Username: {{ username }}</h1>
+
+</html>

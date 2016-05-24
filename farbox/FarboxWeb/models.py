@@ -14,4 +14,3 @@ class VirtualFile(models.Model):
     parent_id = models.IntegerField(default=0)
     path_name = models.CharField(max_length=200)
     is_file = models.BooleanField(default=False)
-    pass

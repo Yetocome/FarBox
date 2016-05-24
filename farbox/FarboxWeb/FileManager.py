@@ -2,7 +2,7 @@ import os
 import hashlib
 from .models import RealFile
 from .models import VirtualFile
-def handle_upload_file(f):
+def save_file(f):
     #得到UPLOAD_FILES文件夹的绝对路径
     FILE_PATH = os.path.join(os.path.dirname(os.path.dirname(__file__)),
                              'UPLOAD_FILES')
@@ -33,16 +33,20 @@ def handle_upload_file(f):
     real_file.save()
     return md5obj.hexdigest()
 
-def save_virtual_file(file_hash, virtual_path):
-    parent_id = 0
-    path_names = virtual_path.splite('/')
+def create_user_root_dir(username):
+    dir = VirtualFile(parent_id=0, path_name=username, is_file=False)
+    dir.save()
 
-    for name in path_names[:-1]:
-        vi_pa = VirtualFile.objects.get(parent_id=parent_id, path_name=name)
-        parent_id=vi_pa.path_id
 
-    vi_pa = VirtualFile(parent_id=parent_id,
-                        path_names=path_names[-1],
+def save_virtual_file(realfilename, username, filename):
+    t = VirtualFile.objects.get(parent_id=0, path_name=username)
+    vi_pa = VirtualFile(parent_id=t.path_id,
+                        path_name=filename,
                         is_file=True,
-                        realfilename=file_hash)
+                        realfilename=realfilename,)
     vi_pa.save()
+
+
+def handle_upload_file(f, username):
+    realfilename = save_file(f)
+    save_virtual_file(realfilename, username, f.name)

@@ -32,4 +32,3 @@ class UploadForm(forms.Form):
     上传文件表单
     """
     file = forms.FileField(label='文件名', max_length=200)
-    path_name = forms.CharField(label='路径名', max_length=200)

@@ -14,7 +14,10 @@ from .forms import LoginForm, RegistrationForm, UploadForm
 
     
 def index(request):
-    return render(request, 'index.html')
+    if request.user.is_authenticated():
+        return redirect('FarboxWeb:home')
+    else:
+        return render(request, 'index.html')
 
 def register(request):
     if request.method == 'POST':
@@ -23,6 +26,7 @@ def register(request):
             user = form.save(commit=False)
             user.email = form.cleaned_data['email']
             user.save()
+            FileManager.create_user_root_dir(user.username)
             messages.info(request, '注册成功!')
             return redirect('FarboxWeb:index')
         return render(request, 'register.html', {
@@ -49,13 +53,16 @@ def login(request):
         return render(request, 'login.html', {'form':form,})
 
 
+def home(request):
+    return render(request, 'home.html', {
+        'username': request.user.get_username(),})
+
 def upload(request):
     if not request.user.is_authenticated():
         return HttpResponse("you are not logged in")
     if request.method == 'POST':
-        form = UploadForm(request.POST, request.FILES)
-        realfilename = FileManager.handle_upload_file(request.FILES['file'])
-
+        FileManager.handle_upload_file(request.FILES['file'],
+                                       request.user.get_username())
         return HttpResponse(request.FILES['file'].name + " SIZE: " + str(request.FILES['file'].size))
     else:
         upload_form = UploadForm()
