@@ -15,7 +15,7 @@
 <h1>Username: {{ username }}</h1>
 <ul>
     {% for file in files %}
-    <li class="list-group-item">
+    <li class="list-group-item"><a href="download/?fileid={{file.path_id}}"/>
         {{file.path_name}}
     </li>
     {% endfor %}

@@ -9,6 +9,11 @@ from django.http import HttpResponse, HttpResponseRedirect
 from . import FileManager
 from .models import VirtualFile
 from .forms import LoginForm, RegistrationForm, UploadForm
+from django.http import StreamingHttpResponse
+from wsgiref.util import FileWrapper
+import mimetypes
+from django.utils.encoding import smart_str
+import os
 # Create your views here.
 
 
@@ -77,3 +82,14 @@ def upload(request):
     else:
         upload_form = UploadForm()
         return render(request, 'upload.html', {'upload_form':upload_form, 'username':request.user.get_username()})
+
+def download(request):
+    FILE_PATH = os.path.join(os.path.dirname(os.path.dirname(__file__)),
+                             'UPLOAD_FILES')
+    rf = VirtualFile.objects.get(path_id=request.GET['fileid'])
+    filename = os.path.join(FILE_PATH, rf.realfilename)
+    wrapper = FileWrapper(open(filename, 'rb'))
+    response = HttpResponse(wrapper, content_type='application/octet-stream')
+    response['Content-Length'] = os.path.getsize(filename)
+    response['Content-Disposition'] = ('attachment; filename=%s' % rf.path_name).encode('utf-8')
+    return response
