@@ -1,5 +1,5 @@
 {% load staticfiles %}
-
+{% load bootstrap3 %}
 <html lang="en">
 
 <head>
@@ -9,12 +9,13 @@
   <link rel="stylesheet" href="{% static 'FarboxWeb/bootstrap/css/bootstrap.min.css' %}"/>
     <script src="{% static 'FarboxWeb/bootstrap/js/bootstrap.min.js' %}"> </script>
 </head>
+
 <body>
 {% csrf_token %}
 <h1>Username: {{ username }}</h1>
 <ul>
     {% for file in files %}
-    <li>
+    <li class="list-group-item">
         {{file.path_name}}
     </li>
     {% endfor %}

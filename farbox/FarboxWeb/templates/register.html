@@ -1,24 +1,29 @@
 {% load staticfiles %}
+{# Load the tag library #}
+{% load bootstrap3 %}
+
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>用户注册</title>
+    <title>注册</title>
 </head>
-  <style type="text/css">
-    body{color:#efd;background:#453;padding:0 5em;margin:0}
-    h1{padding:2em 1em;background:#675}
-    h2{color:#bf8;border-top:1px dotted #fff;margin-top:2em}
-    p{margin:1em 0}
-  </style>
+
 <link rel="stylesheet" type="text/css" href="{% static 'FarboxWeb/bootstrap/css/bootstrap.css' %}"/>
 <body>
 <h1>注册页面：</h1>
-<form action = "" method = 'post' enctype="multipart/form-data">
-    {% csrf_token %}
-{{form.as_p}}
-<input type="submit" value = "ok" />
+
+<form action="" method="post" class="form">
+  {% csrf_token %}
+  {% bootstrap_form form%}
+  {% buttons %}
+    <button type="submit" class="btn btn-primary">
+      {% bootstrap_icon "star" %} Submit
+    </button>
+  {% endbuttons %}
 </form>
   <p><a href="../login">login</a></p>
 </body>

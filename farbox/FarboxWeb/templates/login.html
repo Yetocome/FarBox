@@ -1,23 +1,32 @@
 {% load staticfiles %}
-<!DOCTYPE html>
+{# Load the tag library #}
+{% load bootstrap3 %}
+
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>用户登录</title>
 </head>
-  <style type="text/css">
-    body{color:#efd;background:#453;padding:0 5em;margin:0}
-    h1{padding:2em 1em;background:#675}
-    h2{color:#bf8;border-top:1px dotted #fff;margin-top:2em}
-    p{margin:1em 0}
-  </style>
+
 <link rel="stylesheet" type="text/css" href="{% static 'account/bootstrap/css/bootstrap.css' %}"/>
 <body>
-<h1>登录界面</h1>
-<form action = "" method = 'post' enctype="multipart/form-data">
-    {% csrf_token %}
-{{form.as_p}}
-<input type="submit" value = "ok" />
+<h1>登录</h1>
+
+
+
+{# Display a form #}
+<form action="" method="post" class="form">
+  {% csrf_token %}
+  {% bootstrap_form form%}
+  {% buttons %}
+    <button type="submit" class="btn btn-primary">
+      {% bootstrap_icon "star" %} Submit
+    </button>
+  {% endbuttons %}
 </form>
 </body>
 </html>
