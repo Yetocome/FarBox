@@ -1,6 +1,5 @@
 {% load staticfiles %}
-{% csrf_token %}
-<!DOCTYPE html>
+
 <html lang="en">
 
 <head>
@@ -10,7 +9,8 @@
   <link rel="stylesheet" href="{% static 'FarboxWeb/bootstrap/css/bootstrap.min.css' %}"/>
     <script src="{% static 'FarboxWeb/bootstrap/js/bootstrap.min.js' %}"> </script>
 </head>
-
+<body>
+{% csrf_token %}
 <h1>Username: {{ username }}</h1>
 <ul>
     {% for file in files %}
@@ -21,4 +21,5 @@
 </ul>
 <p><a href="../upload">upload</a></p>
 <p><a href="../logout">logout</a></p>
+</body>
 </html>
