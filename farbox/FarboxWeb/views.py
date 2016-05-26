@@ -11,6 +11,7 @@ from .models import VirtualFile
 from .forms import LoginForm, RegistrationForm, UploadForm
 from django.http import StreamingHttpResponse
 from wsgiref.util import FileWrapper
+from django.contrib.auth.decorators import login_required
 import mimetypes
 from django.utils.encoding import smart_str
 import os
@@ -57,7 +58,7 @@ def login(request):
         form = LoginForm()
         return render(request, 'login.html', {'form':form,})
 
-
+@login_required
 def home(request):
     username = request.user.get_username()
     files = VirtualFile.objects.get(parent_id=0, path_name=username)
@@ -67,9 +68,11 @@ def home(request):
         'files':files,
     })
 
+
 def logout(request):
     logout_user(request)
     return redirect('FarboxWeb:index')
+
 
 def upload(request):
     if not request.user.is_authenticated():
@@ -82,6 +85,7 @@ def upload(request):
     else:
         upload_form = UploadForm()
         return render(request, 'upload.html', {'upload_form':upload_form, 'username':request.user.get_username()})
+
 
 def download(request):
     FILE_PATH = os.path.join(os.path.dirname(os.path.dirname(__file__)),
