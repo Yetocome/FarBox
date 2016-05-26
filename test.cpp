@@ -17,6 +17,7 @@ int main()
 #endif
     string str(100, 'x');
     auto strp = str.rbegin();
+    cout << "this is xiaoai" << endl;
     cout << *strp << endl;
     return 0;
 }
