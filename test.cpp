@@ -11,10 +11,6 @@ const int maxn = 1e5 + 13;
 
 int main()
 {
-#ifdef xiaoai
-    //freopen("in.txt", "r", stdin);
-    //freopen("out.txt", "w", stdout);
-#endif
     string str(100, 'x');
     auto strp = str.rbegin();
     cout << *strp << endl;
