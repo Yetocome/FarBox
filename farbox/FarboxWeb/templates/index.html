@@ -7,25 +7,28 @@
 <head>
   <title>farbox - 在云端的生活</title>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- 移动设备使用-->
   <link rel="stylesheet" href="{% static 'FarboxWeb/bootstrap/css/bootstrap.min.css' %}"/>
     <script src="{% static 'FarboxWeb/bootstrap/js/bootstrap.min.js' %}"> </script>
-
+    <style>
+        body {  background-image: url(https://upload.wikimedia.org/wikipedia/commons/6/65/Congestus_con.jpg);}
+    </style>
 </head>
 
-<body>
+<!-- <body background="{% static 'FarboxWeb/bootstrap/pictures/cl.jpg' %}"> -->
+<body >
 {% csrf_token %}
 <nav class="navbar navbar-default">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="#">Farbox</a>
+            <a class="navbar-brand bg-warning" href="#" >Farbox</a>
         </div>
         <ul class="nav navbar-nav">
             <li class="active"><a href="#">Home</a></li>
         </ul>
-        <ul class="nav navbar-nav navbar-right">
-      <li><a href="register"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-      <li><a href="login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        <ul class="nav navbar-nav navbar-right" >
+      <li><a href="register" class="bg-info"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+      <li><a href="login" class="bg-success"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
         </ul>
     </div>
 </nav>
@@ -36,11 +39,15 @@
             <h1>Welcome to farbox!</h1>
         </div>
     <div class="row">
-    <div class="col-sm-4">
-      <h3>让我们拥抱在云端的生活</h3>
-      <p >安全、可靠、快速的文件同步和共享</p>
-      <p>文件组织成资料库。每个资料库可选择性的同步到任意设备。可靠高效的文件同步将提高您的工作效率</p>
+        <div class="col-md-4" style="background-color:hoary">
+            <h3>让我们拥抱在云端的生活</h3>
+        </div>
     </div>
+    <div class="row">
+        <div class="col-md-4" style="background-color:lavender;">
+            <p class="text-muted lead ">安全、可靠、快速的文件同步和共享。</p>
+            <p class="text-muted">文件组织成资料库。每个资料库可选择性的同步到任意设备。可靠高效的文件同步将提高您的工作效率。</p>
+        </div>
     </div>
 </div>
 
@@ -48,11 +55,11 @@
 <div class="footer" style="position:fixed;bottom:40px;">
     <span>&copy; 2016 farbox</span>
     <span class="dot">·</span>
-    <a target="_parent" href="login">登录</a>
+    <a target="_parent" href="login" class="bg-info">登录</a>
     <span class="dot">·</span>
-    <a target="_blank" href="register">注册</a>
+    <a target="_blank" href="register" class="bg-success">注册</a>
     <span class="dot">·</span>
-    <a target="_top" href="aboutus">关于我们</a>
+    <a target="_top" href="aboutus" class="bg-warning">关于我们</a>
 
 </div>
 
