@@ -14,7 +14,13 @@
 
 <link rel="stylesheet" type="text/css" href="{% static 'FarboxWeb/bootstrap/css/bootstrap.css' %}"/>
 <body>
-<h1>注册页面：</h1>
+<div class="page-header">
+<div class="row">
+        <div class="col-sm-12">
+                     <h1 >注册</h1>
+        </div>
+</div>
+</div>
 
 <form action="" method="post" class="form">
   {% csrf_token %}
@@ -25,6 +31,18 @@
     </button>
   {% endbuttons %}
 </form>
-  <p><a href="../login">login</a></p>
+
+
+<div class="footer" style="position:fixed;bottom:40px;">
+    <div class="btn-gruop">
+        <a href="../#" class="btn btn-primary">{% bootstrap_icon "home" %} HOME </a>
+        <a href="../login" class="btn btn-danger">
+            <span class="glyphicon glyphicon-plane"></span>
+            Login
+        </a> <!-- find_secret为找回密码未实现 -->
+        </button>
+    </div>
+</div>
+
 </body>
 </html>
