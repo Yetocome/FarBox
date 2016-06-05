@@ -93,9 +93,11 @@ def upload(request):
     if not request.user.is_authenticated():
         return HttpResponse("you are not logged in")
     if request.method == 'POST':
-        FileManager.handle_upload_file(request.FILES['file'],
-                                       request.user.get_username())
-
+        try:
+            f = request.FILES['file']
+        except:
+            return redirect('FarboxWeb:upload')
+        FileManager.handle_upload_file(f, request.user.get_username())
 
         return redirect('FarboxWeb:home')
         #return HttpResponse(request.FILES['file'].name + " SIZE: " + str(request.FILES['file'].size))
