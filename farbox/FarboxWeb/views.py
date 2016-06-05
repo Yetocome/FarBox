@@ -51,9 +51,14 @@ def login(request):
         if(form.is_valid()):
             if not form.cleaned_data.get('remember_me'):
                 request.session.set_expiry(0)
-
             login_user(request, form.get_user())
             return redirect('FarboxWeb:home')
+        else:
+            msg = "用户名和密码不匹配!"
+            return render(request, 'login.html', {
+                'form':form,
+                'msg':msg,
+            })
     else:
         form = LoginForm()
         return render(request, 'login.html', {'form':form,})

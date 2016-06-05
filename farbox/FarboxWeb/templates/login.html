@@ -12,6 +12,7 @@
 <link rel="stylesheet" type="text/css" href="{% static 'FarboxWeb/css/style.css' %}" />
 </head>
 <body>
+{% if msg %} <h2 align="middle">{{ msg }}</h2> {% endif %}
 <div class="container">
 	<section id="content">
 		<form action="" method="post">
