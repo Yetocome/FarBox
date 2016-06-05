@@ -23,7 +23,7 @@ def index(request):
     if request.user.is_authenticated():
         return redirect('FarboxWeb:home')
     else:
-        return render(request, 'index.html')
+        return redirect('FarboxWeb:login')
 
 def register(request):
     if request.method == 'POST':
@@ -53,10 +53,10 @@ def login(request):
                 request.session.set_expiry(0)
 
             login_user(request, form.get_user())
-            return redirect('FarboxWeb:index')
+            return redirect('FarboxWeb:home')
     else:
         form = LoginForm()
-        return render(request, 'login.bac.html', {'form':form,})
+        return render(request, 'login.html', {'form':form,})
 
 @login_required
 def home(request):

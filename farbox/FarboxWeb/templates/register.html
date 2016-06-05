@@ -1,48 +1,41 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]> <html lang="en" class="ie6 ielt8"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="en" class="ie7 ielt8"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="en" class="ie8"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--> <html lang="en"> <!--<![endif]-->
 {% load staticfiles %}
 {# Load the tag library #}
-{% load bootstrap3 %}
 
-{# Load CSS and JavaScript #}
-{% bootstrap_css %}
-{% bootstrap_javascript %}
-<?xml version="1.0" encoding="UTF-8"?>
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>注册</title>
+<meta charset="utf-8">
+<title>Farbox --让我们拥抱云端的生活</title>
+<link rel="stylesheet" type="text/css" href="{% static 'FarboxWeb/css/style.css' %}" />
 </head>
-
-<link rel="stylesheet" type="text/css" href="{% static 'FarboxWeb/bootstrap/css/bootstrap.css' %}"/>
 <body>
-<div class="page-header">
-<div class="row">
-        <div class="col-sm-12">
-                     <h1 >注册</h1>
-        </div>
-</div>
-</div>
-
-<form action="" method="post" class="form">
-  {% csrf_token %}
-  {% bootstrap_form form%}
-  {% buttons %}
-    <button type="submit" class="btn btn-primary">
-      {% bootstrap_icon "star" %} Submit
-    </button>
-  {% endbuttons %}
-</form>
-
-
-<div class="footer" style="position:fixed;bottom:40px;">
-    <div class="btn-gruop">
-        <a href="../#" class="btn btn-primary">{% bootstrap_icon "home" %} HOME </a>
-        <a href="../login" class="btn btn-danger">
-            <span class="glyphicon glyphicon-plane"></span>
-            Login
-        </a> <!-- find_secret为找回密码未实现 -->
-        </button>
-    </div>
-</div>
-
+<div class="container">
+	<section id="content">
+		<form action="" method="post">
+            {% csrf_token %}
+            <h1>注册</h1>
+		    <div>
+				<input type="text" placeholder="Username" required="required" id="id_username" name="username"/>
+			</div>
+			<div>
+				<input type="password" placeholder="Password" required="required" id="id_password1" name="password1"/>
+			</div>
+            <div>
+				<input type="password" placeholder="Password confirmation" required="required" id="id_password2" name="password2"/>
+			</div>
+            <div>
+				<input type="text" placeholder="Email" required="required" id="id_email" name="email"/>
+			</div>
+			<div>
+				<input type="submit" value="注册" />
+                <a href="#">忘记密码?</a >
+				<a href="../login">登录</a>
+			</div>
+		</form><!-- form -->
+	</section><!-- content -->
+</div><!-- container -->
 </body>
 </html>

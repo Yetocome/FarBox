@@ -5,14 +5,10 @@
 <!--[if (gte IE 9)|!(IE)]><!--> <html lang="en"> <!--<![endif]-->
 {% load staticfiles %}
 {# Load the tag library #}
-{% load bootstrap3 %}
 
-{# Load CSS and JavaScript #}
-{% bootstrap_css %}
-{% bootstrap_javascript %}
 <head>
 <meta charset="utf-8">
-<title>Paper Stack</title>
+<title>Farbox --让我们拥抱云端的生活</title>
 <link rel="stylesheet" type="text/css" href="{% static 'FarboxWeb/css/style.css' %}" />
 </head>
 <body>
@@ -20,23 +16,20 @@
 	<section id="content">
 		<form action="" method="post">
             {% csrf_token %}
-			<h1>Login Form</h1>
+			<h1>登录</h1>
 			<div>
-				<input type="text" placeholder="Username" required="" id="username" />
+				<input type="text" placeholder="Username" required="required" id="id_username" name="username"/>
 			</div>
 			<div>
-				<input type="password" placeholder="Password" required="" id="password" />
+				<input type="password" placeholder="Password" required="required" id="id_password" name="password"/>
 			</div>
 			<div>
-				<input type="submit" value="Log in" />
-				<a href="#">Lost your password?</a >
-				<a href="../register">Register</a>
+				<input type="submit" value="登录" />
+				<a href="#">忘记密码?</a >
+				<a href="../register">注册</a>
 			</div>
 		</form><!-- form -->
 	</section><!-- content -->
 </div><!-- container -->
-
-
-
 </body>
 </html>
