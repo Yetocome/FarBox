@@ -31,22 +31,23 @@ def save_file(f):
                          file_size=f.size)
 
     real_file.save()
-    return md5obj.hexdigest()
+    return real_file
 
 def create_user_root_dir(username):
     dir = VirtualFile(parent_id=0, path_name=username, is_file=False)
     dir.save()
 
 
-def save_virtual_file(realfilename, username, filename):
+def save_virtual_file(real_file, username):
     t = VirtualFile.objects.get(parent_id=0, path_name=username)
     vi_pa = VirtualFile(parent_id=t.path_id,
-                        path_name=filename,
+                        path_name=real_file.file_name,
+                        file_size=real_file.file_size,
                         is_file=True,
-                        realfilename=realfilename,)
+                        realfilename=real_file.file_hash,)
     vi_pa.save()
 
 
 def handle_upload_file(f, username):
-    realfilename = save_file(f)
-    save_virtual_file(realfilename, username, f.name)
+    real_file = save_file(f)
+    save_virtual_file(real_file, username)

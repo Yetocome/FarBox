@@ -13,4 +13,6 @@ class VirtualFile(models.Model):
     path_id = models.IntegerField(primary_key=True)
     parent_id = models.IntegerField(default=0)
     path_name = models.CharField(max_length=200)
+    file_size = models.IntegerField(null=False)
+    upload_time = models.DateTimeField(auto_now=True)
     is_file = models.BooleanField(default=False)

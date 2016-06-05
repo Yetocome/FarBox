@@ -1,5 +1,4 @@
 {% load staticfiles %}
-{% load bootstrap3 %}
 <html lang="en">
 
 <head>
@@ -12,15 +11,47 @@
 
 <body>
 {% csrf_token %}
-<h1>Username: {{ username }}</h1>
-<ul>
-    {% for file in files %}
-    <li class="list-group-item"><a href="download/?fileid={{file.path_id}}"/>
-        {{file.path_name}}
-    </li>
-    {% endfor %}
-</ul>
-<p><a href="../upload">upload</a></p>
-<p><a href="../logout">logout</a></p>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Farbox</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#"><span class="glyphicon glyphicon-user"></span> {{ username }}</a></li>
+        <li><a href="logout"><span class="glyphicon glyphicon-log-out"></span> logout</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>文件名</th>
+        <th>文件大小</th>
+        <th>日期</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for file in files %}
+            <tr>
+                <td><a href="download/?fileid={{file.path_id}}">{{ file.path_name }}</a></td>
+                <td>{{ file.file_size }} 字节</td>
+                <td>{{ file.upload_time|date:"Y年m月d日 H时i分"}}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+  </table>
+</div>
+<div class="container">
+    <a href="upload" class="btn btn-info" role="button">upload</a>
+</div>
 </body>
 </html>

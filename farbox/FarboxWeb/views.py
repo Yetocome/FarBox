@@ -68,12 +68,12 @@ def home(request):
         'files':files,
     })
 
-
+@login_required
 def logout(request):
     logout_user(request)
     return redirect('FarboxWeb:index')
 
-
+@login_required
 def upload(request):
     if not request.user.is_authenticated():
         return HttpResponse("you are not logged in")

@@ -1,11 +1,35 @@
 <!DOCTYPE html>
+{% load staticfiles %}
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>upload page</title>
+      <head>
+        <title>farbox - 在云端的生活</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- 移动设备使用-->
+        <link rel="stylesheet" href="{% static 'FarboxWeb/bootstrap/css/bootstrap.min.css' %}"/>
+        <script src="{% static 'FarboxWeb/bootstrap/js/bootstrap.min.js' %}"> </script>
+    </head>
+
 </head>
 <body>
-<h1>User: {{ username }}</h1>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Farbox</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#"><span class="glyphicon glyphicon-user"></span> {{ username }}</a></li>
+        <li><a href="logout"><span class="glyphicon glyphicon-log-out"></span> logout</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{upload_form.as_p}}
