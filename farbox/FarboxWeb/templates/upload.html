@@ -6,6 +6,7 @@
         <title>farbox - 在云端的生活</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- 移动设备使用-->
+        <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
         <link rel="stylesheet" href="{% static 'FarboxWeb/bootstrap/css/bootstrap.min.css' %}"/>
         <script src="{% static 'FarboxWeb/bootstrap/js/bootstrap.min.js' %}"> </script>
     </head>
@@ -24,7 +25,21 @@
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#"><span class="glyphicon glyphicon-user"></span> {{ username }}</a></li>
+
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+               <span class="glyphicon glyphicon-user"></span> {{ username }}
+               <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+               <li><a href="#">个人资料</a></li>
+               <li class="divider"></li>
+               <li><a href="#">好友</a></li>
+               <li class="divider"></li>
+               <li><a href="#">其他</a></li>
+              <li class="divider"></li>
+               <li><a href="../home">文件列表</a></li>
+            </ul>
         <li><a href="logout"><span class="glyphicon glyphicon-log-out"></span> logout</a></li>
       </ul>
     </div>
@@ -35,5 +50,18 @@
     {{upload_form.as_p}}
     <input type="submit" value="submit"/>
 </form>
+<HR align=center width=1150 color=#FFFFFF SIZE=1>
+<div class="footer" style="position:fixed;bottom:40px;">
+
+            <span class="label label-primary"> &copy; 2016 farbox</span>
+            <span class="dot">·</span>
+            <a target="_parent" href="login" class="label label-success bg-info">登录</a>
+            <span class="dot">·</span>
+            <a target="_blank" href="register" class="label label-info bg-success">注册</a>
+            <span class="dot">·</span>
+            <a target="_top" href="aboutus" class="label label-warning bg-warning">关于我们</a>
+
+        </div>
+
 </body>
 </html>
