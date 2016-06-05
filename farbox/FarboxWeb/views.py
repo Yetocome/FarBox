@@ -61,7 +61,11 @@ def login(request):
 @login_required
 def home(request):
     username = request.user.get_username()
-    files = VirtualFile.objects.get(parent_id=0, path_name=username)
+    try:
+        files = VirtualFile.objects.get(parent_id=0, path_name=username)
+    except:
+        files = VirtualFile(parent_id=0, path_name=username)
+        files.save()
     files = VirtualFile.objects.filter(parent_id=files.path_id)
     return render(request, 'home.html', {
         'username': username,

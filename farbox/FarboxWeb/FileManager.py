@@ -34,7 +34,7 @@ def save_file(f):
     return real_file
 
 def create_user_root_dir(username):
-    dir = VirtualFile(parent_id=0, path_name=username, is_file=False)
+    dir = VirtualFile(parent_id=0, path_name=username, is_file=False, file_size=0)
     dir.save()
 
 
