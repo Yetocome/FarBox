@@ -25,7 +25,10 @@ def index(request):
     else:
         return redirect('FarboxWeb:login')
 
+
 def register(request):
+    if request.user.is_authenticated():
+        logout_user(request)
     if request.method == 'POST':
         form = RegistrationForm(data=request.POST)
         if form.is_valid():
@@ -46,6 +49,8 @@ def register(request):
 
 
 def login(request):
+    if request.user.is_authenticated():
+        logout_user(request)
     if request.method == 'POST':
         form = LoginForm(data=request.POST)
         if(form.is_valid()):
