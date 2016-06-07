@@ -9,7 +9,12 @@
 <head>
 <meta charset="utf-8">
 <title>Farbox --让我们拥抱云端的生活</title>
-<link rel="stylesheet" type="text/css" href="{% static 'FarboxWeb/css/style.css' %}" />
+        <link rel="stylesheet" type="text/css" href="{% static 'FarboxWeb/css/style.css' %}" />
+	    <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- 移动设备使用-->
+        <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="{% static 'FarboxWeb/bootstrap/css/bootstrap.min.css' %}"/>
+        <script src="{% static 'FarboxWeb/bootstrap/js/bootstrap.min.js' %}"> </script>
 </head>
 <body>
 {% if msg %} <h2 align="middle">{{ msg }}</h2> {% endif %}
