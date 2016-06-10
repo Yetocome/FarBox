@@ -58,7 +58,7 @@ def login(request):
             if not form.cleaned_data.get('remember_me'):
                 request.session.set_expiry(0)
             login_user(request, form.get_user())
-            return redirect('FarboxWeb:home')
+            return redirect(request.GET['next'])
         else:
             msg = "用户名和密码不匹配!"
             return render(request, 'login.html', {
@@ -68,6 +68,7 @@ def login(request):
     else:
         form = LoginForm()
         return render(request, 'login.html', {'form':form,})
+
 
 @login_required
 def home(request):
@@ -84,6 +85,7 @@ def home(request):
     })
 
 
+@login_required
 def share_file(request):
     username = request.user.get_username()
     fileid = request.GET['fileid']
@@ -95,6 +97,7 @@ def share_file(request):
     })
 
 
+@login_required
 def share_page(request):
     share_key = request.GET['share_key']
     share_info = ShareInfo.objects.get(pk=share_key)
@@ -141,6 +144,7 @@ def upload(request):
         return render(request, 'upload.html', {'upload_form':upload_form, 'username':request.user.get_username()})
 
 
+@login_required
 def delete_file(request):
     FileManager.delete_file(request.GET['fileid'])
     return redirect('FarboxWeb:home')
