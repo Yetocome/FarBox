@@ -7,11 +7,12 @@ from django.contrib.auth import authenticate
 from django.contrib.auth import login as login_user, logout as logout_user
 from django.http import HttpResponse, HttpResponseRedirect
 from . import FileManager
-from .models import VirtualFile
+from .models import VirtualFile, ShareInfo, RealFile
 from .forms import LoginForm, RegistrationForm, UploadForm
 from django.http import StreamingHttpResponse
 from wsgiref.util import FileWrapper
 from django.contrib.auth.decorators import login_required
+from . import ShareManager
 import mimetypes
 from django.utils.encoding import smart_str
 import os
@@ -82,10 +83,44 @@ def home(request):
         'files':files,
     })
 
+
+def share_file(request):
+    username = request.user.get_username()
+    fileid = request.GET['fileid']
+    share_info = ShareManager.generate_share_info(fileid)
+    share_info.save()
+    return render(request, 'share_key.html', {
+        'username': username,
+        'share_key':share_info.share_key,
+    })
+
+
+def share_page(request):
+    share_key = request.GET['share_key']
+    share_info = ShareInfo.objects.get(pk=share_key)
+    file = VirtualFile.objects.get(path_id=share_info.path_id)
+    return render(request, 'share_page.html', {
+        'username':request.user.get_username(),
+        'file':file,
+        'share_key':share_key
+    })
+
+
+@login_required
+def save_to_mine(request):
+    share_key = request.GET['share_key']
+    share_info = ShareInfo.objects.get(pk=share_key)
+    virtualfile = VirtualFile.objects.get(path_id=share_info.path_id)
+    realfile = RealFile.objects.get(file_hash=virtualfile.realfilename)
+    FileManager.save_virtual_file(realfile, request.user.get_username())
+    return redirect('FarboxWeb:home')
+
+
 @login_required
 def logout(request):
     logout_user(request)
     return redirect('FarboxWeb:index')
+
 
 @login_required
 def upload(request):
@@ -104,6 +139,11 @@ def upload(request):
     else:
         upload_form = UploadForm()
         return render(request, 'upload.html', {'upload_form':upload_form, 'username':request.user.get_username()})
+
+
+def delete_file(request):
+    FileManager.delete_file(request.GET['fileid'])
+    return redirect('FarboxWeb:home')
 
 
 def download(request):

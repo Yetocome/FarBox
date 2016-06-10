@@ -48,30 +48,10 @@
 </nav>
 
 <div class="container">
-  <table class="table table-hover">
-    <thead>
-      <tr>
-        <th>文件名</th>
-        <th>文件大小</th>
-        <th>日期</th>
-      </tr>
-    </thead>
-    <tbody>
-        {% for file in files %}
-            <tr>
-                <td><a href="download/?fileid={{file.path_id}}">{{ file.path_name }}</a></td>
-                <td>{{ file.file_size }} 字节</td>
-                <td>{{ file.upload_time|date:"Y年m月d日 H时i分"}}</td>
-                <td><a href="share_file/?fileid={{file.path_id}}">分享</a></td>
-                <td><a href="delete_file/?fileid={{file.path_id}}">删除</a></td>
-            </tr>
-        {% endfor %}
-    </tbody>
-  </table>
+    <h1 align="middle" style="color:#000000">分享链接:<a href="../share_page/?share_key={{share_key}}">
+        http://{{ request.get_host }}/share_page/?share_key={{share_key}}</a></h1>
 </div>
-<div class="container">
-    <a href="upload" class="btn btn-info" role="button">upload</a>
-</div>
+
 <div class="footer" style="position:fixed;bottom:40px;">
 
             <span class="label label-primary"> &copy; 2016 farbox</span>

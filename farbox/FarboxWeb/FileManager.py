@@ -45,9 +45,18 @@ def save_virtual_file(real_file, username):
                         file_size=real_file.file_size,
                         is_file=True,
                         realfilename=real_file.file_hash,)
-    vi_pa.save()
+    try:
+        vi_pa.save()
+    except Exception as e:
+        print(e)
 
 
 def handle_upload_file(f, username):
     real_file = save_file(f)
     save_virtual_file(real_file, username)
+
+
+def delete_file(path_id):
+    file = VirtualFile.objects.get(path_id=path_id)
+    file.delete()
+
