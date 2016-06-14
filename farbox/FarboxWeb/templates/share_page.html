@@ -58,11 +58,11 @@
     </thead>
     <tbody>
             <tr>
-                <td><a href="download/?fileid={{file.path_id}}">{{ file.path_name }}</a></td>
+                <td><a href="{% url 'FarboxWeb:download' %}/?fileid={{file.path_id}}">{{ file.path_name }}</a></td>
                 <td>{{ file.file_size }} 字节</td>
                 <td>{{ file.upload_time|date:"Y年m月d日 H时i分"}}</td>
                 <td>
-                    <a href="../save_to_mine/?share_key={{share_key}}" class="btn btn-info" role="button">转存</a>
+                    <a href="{% url 'FarboxWeb:save_to_mine' %}/?share_key={{share_key}}" class="btn btn-info" role="button">转存</a>
                 </td>
             </tr>
     </tbody>
